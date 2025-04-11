@@ -1,0 +1,2 @@
+[console_scripts]
+mates-lang = lang.main:main
