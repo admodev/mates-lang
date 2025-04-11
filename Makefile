@@ -4,9 +4,10 @@ all: install run
 
 install:
 	@echo "Instalando MATES..."
-	pip install -e . || pip3 install -e .
+	@python3 -m pip install -e . || pip install -e .
 	@echo "MATES instalado exitosamente!"
 
 run:
+	@echo "Ejecutando MATES..."
 	mates-lang
 
