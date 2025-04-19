@@ -2,7 +2,9 @@ README.md
 pyproject.toml
 src/constants/__init__.py
 src/constants/keywords.py
+src/constants/operators.py
 src/lang/__init__.py
+src/lang/add.py
 src/lang/main.py
 src/mates.egg-info/PKG-INFO
 src/mates.egg-info/SOURCES.txt
