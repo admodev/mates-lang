@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 src/constants/__init__.py
 src/constants/keywords.py
@@ -7,4 +8,6 @@ src/mates.egg-info/PKG-INFO
 src/mates.egg-info/SOURCES.txt
 src/mates.egg-info/dependency_links.txt
 src/mates.egg-info/entry_points.txt
+src/mates.egg-info/requires.txt
 src/mates.egg-info/top_level.txt
+tests/test_main.py

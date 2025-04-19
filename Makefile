@@ -1,31 +1,33 @@
-.PHONY: all install run test bootstrap clean
+.PHONY: all install run check_venv bootstrap
 
-all: install run
+VENV := .venv
+ACTIVATE := source $(VENV)/bin/activate
 
-install:
-	@echo "🔧 Instalando MATES en modo editable..."
-	pip install -e . || pip3 install -e .
-	@echo "✅ Instalación completada."
-
-run:
-	@echo "🚀 Ejecutando MATES..."
-	mates-lang
-
-test:
-	@echo "🧪 Ejecutando tests..."
-	@if command -v pytest >/dev/null 2>&1; then \
-		pytest; \
+# Verifica si estamos en un entorno virtual
+check_venv:
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo "🔍 No estás en un entorno virtual. Ejecutando bootstrap..."; \
+		./bootstrap.sh; \
 	else \
-		python -m unittest discover -s tests; \
+		echo "✅ Entorno virtual detectado: $$VIRTUAL_ENV"; \
 	fi
 
+# Bootstrap manual si se quiere correr aislado
 bootstrap:
-	@echo "🔁 Ejecutando bootstrap..."
-	@bash bootstrap.sh
+	@echo "🏗 Ejecutando bootstrap manual..."
+	./bootstrap.sh
 
-clean:
-	@echo "🧹 Limpiando archivos compilados..."
-	find . -type f -name '*.pyc' -delete
-	find . -type d -name '__pycache__' -exec rm -r {} +
-	rm -rf .venv
+# Comando principal
+all: check_venv install run
+
+# Instalación en modo editable
+install:
+	@echo "📦 Instalando MATES..."
+	$(ACTIVATE) && pip install -e .[dev]
+	@echo "✅ Instalación completa."
+
+# Ejecutar el programa
+run:
+	@echo "🏃 Ejecutando MATES..."
+	$(ACTIVATE) && mates-lang
 

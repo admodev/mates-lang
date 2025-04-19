@@ -7,6 +7,16 @@
 ---
 
 ```shell
+make
+```
+
+Bootstrap + instalación + ejecución del proyecto
+
+---
+
+---
+
+```shell
 make install
 ```
 

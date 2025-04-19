@@ -3,3 +3,7 @@ Name: mates
 Version: 0.1.0
 Summary: Un lenguaje matemático para Python
 Author-email: Adolfo Moyano <admodevcodes@outlook.com>
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pytest; extra == "dev"

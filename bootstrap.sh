@@ -1,40 +1,34 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "🚀 Iniciando bootstrap del proyecto MATES..."
+set -e
 
-if ! command -v python3 &>/dev/null; then
-    echo "❌ Python3 no está instalado. Abortando."
-    exit 1
-fi
+echo "🚀 Iniciando bootstrap de entorno virtual para MATES..."
 
+# Crear entorno virtual si no existe
 if [ ! -d ".venv" ]; then
-    echo "🧪 Creando entorno virtual..."
-    python3 -m venv .venv
+  echo "📦 Creando entorno virtual en .venv..."
+  python3 -m venv .venv
 else
-    echo "🔁 Entorno virtual ya existe"
+  echo "✅ Entorno virtual ya existe."
 fi
 
-source .venv/bin/activate || source .venv/Scripts/activate
+# Activar entorno virtual
+source .venv/bin/activate
+echo "🐍 Entorno virtual activado."
 
+# Actualizar pip
 echo "⬆️  Actualizando pip..."
 pip install --upgrade pip
 
-echo "📦 Instalando proyecto en modo editable..."
-pip install -e .
+# Instalar MATES + herramientas de desarrollo
+echo "📦 Instalando dependencias del proyecto en modo editable..."
+pip install -e .[dev]
 
-if grep -q "import pytest" src/**/*.py 2>/dev/null || test -f "pytest.ini"; then
-    echo "🧪 Instalando pytest..."
-    pip install pytest
-elif grep -q "import unittest" src/**/*.py 2>/dev/null; then
-    echo "🧪 unittest detectado (incluido en stdlib)"
-fi
+# Verificar herramientas instaladas
+echo "🔍 Verificando herramientas de desarrollo..."
+command -v black >/dev/null 2>&1 && echo "✔ black" || echo "❌ black no instalado"
+command -v mypy >/dev/null 2>&1 && echo "✔ mypy" || echo "❌ mypy no instalado"
+command -v pytest >/dev/null 2>&1 && echo "✔ pytest" || echo "❌ pytest no instalado"
 
-echo "✅ Corriendo tests..."
-if command -v pytest &>/dev/null; then
-    pytest
-else
-    echo "⚠️  No se detectó pytest, asegurate de correr 'python -m unittest discover -s src'"
-fi
-
-echo "🎉 Bootstrap completo. ¡Estás listo para desarrollar!"
+echo "✅ Bootstrap finalizado. Usá 'source .venv/bin/activate' para comenzar a trabajar."
 

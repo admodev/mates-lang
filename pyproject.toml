@@ -11,6 +11,9 @@ authors = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["black", "mypy", "pytest"]
+
 [project.scripts]
 mates-lang = "lang.main:main"
 
